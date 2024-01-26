@@ -15,6 +15,8 @@ public class Book {
     @Column(nullable = false)
     private String author;
 
+    @OneToOne(mappedBy="book")
+    private Inventory inventory;
 
     public Book() {
     }
