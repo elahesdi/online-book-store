@@ -2,6 +2,8 @@ package com.TOSAN.onlineBookStore.controller;
 
 import com.TOSAN.onlineBookStore.dto.AuthRequestDto;
 import com.TOSAN.onlineBookStore.dto.AuthResponseDto;
+import com.TOSAN.onlineBookStore.exception.DuplicatedUsernameException;
+import com.TOSAN.onlineBookStore.exception.UserInfoNullException;
 import com.TOSAN.onlineBookStore.model.Customer;
 import com.TOSAN.onlineBookStore.security.jwt.JwtUtil;
 import com.TOSAN.onlineBookStore.service.UserService;
@@ -29,12 +31,16 @@ public class AuthController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
             return ResponseEntity.ok().body(new AuthResponseDto("you are successfully logged in", JwtUtil.generateToken(request.getUsername()))) ;
         }catch (BadCredentialsException e){
-            return ResponseEntity.badRequest().body(new AuthResponseDto("Invalid user!"));
+            return ResponseEntity.badRequest().body(new AuthResponseDto(e.getMessage()));
         }
 
     }
     @PostMapping("/sign-up")
-    public String signUp(@RequestBody AuthRequestDto request){
-       return service.addUser(new Customer(request.getUsername(), request.getPassword(), "CUSTOMER"));
+    public ResponseEntity<AuthResponseDto> signUp(@RequestBody AuthRequestDto request){
+        try {
+            return ResponseEntity.ok().body(new AuthResponseDto(service.addUser(new Customer(request.getUsername(), request.getPassword(), "CUSTOMER"))));
+        }catch (DuplicatedUsernameException | UserInfoNullException e){
+            return ResponseEntity.badRequest().body(new AuthResponseDto(e.getMessage()));
+        }
     }
 }
