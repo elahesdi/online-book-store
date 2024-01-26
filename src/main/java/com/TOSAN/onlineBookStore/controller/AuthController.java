@@ -23,11 +23,6 @@ public class AuthController {
         this.service = service;
     }
 
-    @GetMapping
-    public String test(){
-        return "test";
-    }
-
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDto> login(@RequestBody AuthRequestDto request) {
         try {
