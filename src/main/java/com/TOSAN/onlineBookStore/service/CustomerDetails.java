@@ -1,6 +1,6 @@
 package com.TOSAN.onlineBookStore.service;
 
-import com.TOSAN.onlineBookStore.model.Customer;
+import com.TOSAN.onlineBookStore.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +16,7 @@ public class CustomerDetails implements UserDetails {
     private String password;
     private List<GrantedAuthority> authorities;
 
-    public CustomerDetails(Customer userInfo) {
+    public CustomerDetails(User userInfo) {
         name = userInfo.getUsername();
         password = userInfo.getPassword();
         authorities = Arrays.stream(userInfo.getRoles().split(","))

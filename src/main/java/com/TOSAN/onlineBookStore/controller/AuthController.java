@@ -2,9 +2,10 @@ package com.TOSAN.onlineBookStore.controller;
 
 import com.TOSAN.onlineBookStore.dto.AuthRequestDto;
 import com.TOSAN.onlineBookStore.dto.AuthResponseDto;
+import com.TOSAN.onlineBookStore.dto.ResponseDto;
 import com.TOSAN.onlineBookStore.exception.DuplicateUsernameException;
 import com.TOSAN.onlineBookStore.exception.UserInfoNullException;
-import com.TOSAN.onlineBookStore.model.Customer;
+import com.TOSAN.onlineBookStore.model.User;
 import com.TOSAN.onlineBookStore.security.jwt.JwtUtil;
 import com.TOSAN.onlineBookStore.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -25,21 +26,22 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDto> login(@RequestBody AuthRequestDto request) {
+    public ResponseEntity<ResponseDto> login(@RequestBody AuthRequestDto request) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
             return ResponseEntity.ok().body(new AuthResponseDto("you are successfully logged in", JwtUtil.generateToken(request.getUsername()))) ;
         }catch (BadCredentialsException e){
-            return ResponseEntity.badRequest().body(new AuthResponseDto(e.getMessage()));
+            return ResponseEntity.badRequest().body(new ResponseDto(e.getMessage()));
         }
 
     }
     @PostMapping("/sign-up")
-    public ResponseEntity<AuthResponseDto> signUp(@RequestBody AuthRequestDto request){
+    public ResponseEntity<ResponseDto> signUp(@RequestBody AuthRequestDto request){
         try {
-            return ResponseEntity.ok().body(new AuthResponseDto(service.addUser(new Customer(request.getUsername(), request.getPassword(), "CUSTOMER"))));
+            service.addUser(new User(request.getUsername(), request.getPassword(), "CUSTOMER"));
+            return ResponseEntity.ok().body(new ResponseDto("User Added Successfully"));
         }catch (DuplicateUsernameException | UserInfoNullException e){
-            return ResponseEntity.badRequest().body(new AuthResponseDto(e.getMessage()));
+            return ResponseEntity.badRequest().body(new ResponseDto(e.getMessage()));
         }
     }
 }

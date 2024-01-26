@@ -3,7 +3,6 @@ package com.TOSAN.onlineBookStore.security.jwt;
 
 import java.util.Date;
 
-import com.TOSAN.onlineBookStore.model.Customer;
 import io.jsonwebtoken.*;
 import org.springframework.security.core.userdetails.UserDetails;
 

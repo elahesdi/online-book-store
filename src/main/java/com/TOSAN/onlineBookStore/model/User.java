@@ -5,8 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Customers")
-public class Customer {
-
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,10 +18,10 @@ public class Customer {
 
     private String roles;
 
-    public Customer() {
+    public User() {
     }
 
-    public Customer(String username, String password, String roles) {
+    public User(String username, String password, String roles) {
         this.username = username;
         this.password = password;
         this.roles = roles;
