@@ -30,32 +30,23 @@ public class JwtFilter extends OncePerRequestFilter {
         String jwt = null;
         String username = null;
         try {
-            // Extract JWT token from the request
              jwt = getJwtFromRequest(request);
             if (jwt != null && JwtUtil.validateToken(jwt)) {
                 username = JwtUtil.extractUsername(jwt);
             }
         } catch (JwtException | IllegalArgumentException ex) {
-            // Handle invalid JWT exception
             logger.error("Invalid JWT token");
         }
 
-        // Once we get the token validate it.
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = userServiceImp.loadUserByUsername(username);
-
-            // if token is valid configure Spring Security to manually set
-            // authentication
             if (JwtUtil.validateToken(jwt, userDetails)) {
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                // After setting the Authentication in the context, we specify
-                // that the current user is authenticated. So it passes the
-                // Spring Security Configurations successfully.
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }

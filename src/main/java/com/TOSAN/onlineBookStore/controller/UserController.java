@@ -5,7 +5,6 @@ import com.TOSAN.onlineBookStore.dto.UserDto;
 import com.TOSAN.onlineBookStore.exception.UserNotFoundException;
 import com.TOSAN.onlineBookStore.model.User;
 import com.TOSAN.onlineBookStore.service.UserService;
-import com.TOSAN.onlineBookStore.service.UserServiceImp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
