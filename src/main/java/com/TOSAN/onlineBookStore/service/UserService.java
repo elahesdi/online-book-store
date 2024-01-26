@@ -1,6 +1,6 @@
 package com.TOSAN.onlineBookStore.service;
 
-import com.TOSAN.onlineBookStore.exception.DuplicatedUsernameException;
+import com.TOSAN.onlineBookStore.exception.DuplicateUsernameException;
 import com.TOSAN.onlineBookStore.exception.UserInfoNullException;
 import com.TOSAN.onlineBookStore.model.Customer;
 import com.TOSAN.onlineBookStore.repository.CustomerRepository;
@@ -31,13 +31,13 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
     }
 
-    public String addUser(Customer userInfo) throws DuplicatedUsernameException, UserInfoNullException {
+    public String addUser(Customer userInfo) throws DuplicateUsernameException, UserInfoNullException {
         if (userInfo.getUsername() != null && userInfo.getPassword() != null){
             if (customerRepository.findByUsername(userInfo.getUsername()).isEmpty()){
                 userInfo.setPassword(encoder.encode(userInfo.getPassword()));
                 customerRepository.save(userInfo);
             } else {
-                throw new DuplicatedUsernameException(userInfo.getUsername());
+                throw new DuplicateUsernameException(userInfo.getUsername());
             }
         } else {
             throw new UserInfoNullException();

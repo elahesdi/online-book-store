@@ -2,7 +2,7 @@ package com.TOSAN.onlineBookStore.controller;
 
 import com.TOSAN.onlineBookStore.dto.AuthRequestDto;
 import com.TOSAN.onlineBookStore.dto.AuthResponseDto;
-import com.TOSAN.onlineBookStore.exception.DuplicatedUsernameException;
+import com.TOSAN.onlineBookStore.exception.DuplicateUsernameException;
 import com.TOSAN.onlineBookStore.exception.UserInfoNullException;
 import com.TOSAN.onlineBookStore.model.Customer;
 import com.TOSAN.onlineBookStore.security.jwt.JwtUtil;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -39,7 +38,7 @@ public class AuthController {
     public ResponseEntity<AuthResponseDto> signUp(@RequestBody AuthRequestDto request){
         try {
             return ResponseEntity.ok().body(new AuthResponseDto(service.addUser(new Customer(request.getUsername(), request.getPassword(), "CUSTOMER"))));
-        }catch (DuplicatedUsernameException | UserInfoNullException e){
+        }catch (DuplicateUsernameException | UserInfoNullException e){
             return ResponseEntity.badRequest().body(new AuthResponseDto(e.getMessage()));
         }
     }

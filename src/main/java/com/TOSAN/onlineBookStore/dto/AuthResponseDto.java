@@ -1,7 +1,10 @@
 package com.TOSAN.onlineBookStore.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class AuthResponseDto {
     private String message;
+    @JsonIgnore
     private String jwt;
 
     public AuthResponseDto(String message, String jwt) {
