@@ -25,8 +25,6 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<Customer> customer = customerRepository.findByUsername(username);
-
-        // Converting userDetail to UserDetails
         return customer.map(CustomerDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
     }
