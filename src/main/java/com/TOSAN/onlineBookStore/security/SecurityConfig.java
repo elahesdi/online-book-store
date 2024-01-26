@@ -2,7 +2,7 @@ package com.TOSAN.onlineBookStore.security;
 
 
 import com.TOSAN.onlineBookStore.security.jwt.JwtFilter;
-import com.TOSAN.onlineBookStore.service.UserService;
+import com.TOSAN.onlineBookStore.service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +14,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -23,14 +21,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtFilter jwtFilter;
-    private final UserService userService;
+    private final UserServiceImp userServiceImp;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public SecurityConfig(JwtFilter jwtFilter, UserService userService) {
+    public SecurityConfig(JwtFilter jwtFilter, UserServiceImp userServiceImp) {
         this.jwtFilter = jwtFilter;
-        this.userService = userService;
+        this.userServiceImp = userServiceImp;
     }
 
     @Override
@@ -51,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userService);
+        authenticationProvider.setUserDetailsService(userServiceImp);
         authenticationProvider.setPasswordEncoder(passwordEncoder);
         return authenticationProvider;
     }

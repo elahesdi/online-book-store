@@ -1,6 +1,6 @@
 package com.TOSAN.onlineBookStore.security.jwt;
 
-import com.TOSAN.onlineBookStore.service.UserService;
+import com.TOSAN.onlineBookStore.service.UserServiceImp;
 import io.jsonwebtoken.JwtException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,10 +19,10 @@ import java.io.IOException;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-    private final UserService userService;
+    private final UserServiceImp userServiceImp;
 
-    public JwtFilter(UserService userService) {
-        this.userService = userService;
+    public JwtFilter(UserServiceImp userServiceImp) {
+        this.userServiceImp = userServiceImp;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class JwtFilter extends OncePerRequestFilter {
         // Once we get the token validate it.
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            UserDetails userDetails = userService.loadUserByUsername(username);
+            UserDetails userDetails = userServiceImp.loadUserByUsername(username);
 
             // if token is valid configure Spring Security to manually set
             // authentication

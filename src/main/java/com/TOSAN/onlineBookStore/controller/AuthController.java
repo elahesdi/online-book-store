@@ -7,7 +7,7 @@ import com.TOSAN.onlineBookStore.exception.DuplicateUsernameException;
 import com.TOSAN.onlineBookStore.exception.UserInfoNullException;
 import com.TOSAN.onlineBookStore.model.User;
 import com.TOSAN.onlineBookStore.security.jwt.JwtUtil;
-import com.TOSAN.onlineBookStore.service.UserService;
+import com.TOSAN.onlineBookStore.service.UserServiceImp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
-    private final UserService service;
+    private final UserServiceImp service;
 
-    public AuthController(AuthenticationManager authenticationManager, UserService service) {
+    public AuthController(AuthenticationManager authenticationManager, UserServiceImp service) {
         this.authenticationManager = authenticationManager;
         this.service = service;
     }
