@@ -1,6 +1,6 @@
 package com.TOSAN.onlineBookStore.exception;
 
-public class CustomErrorException extends Exception{
+public class CustomErrorException extends Exception {
 
     public CustomErrorException() {
         super();
