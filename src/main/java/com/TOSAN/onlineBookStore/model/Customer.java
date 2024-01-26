@@ -1,6 +1,7 @@
 package com.TOSAN.onlineBookStore.model;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Customers")
@@ -10,12 +11,21 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
+    private String roles;
 
     public Customer() {
+    }
+
+    public Customer(String username, String password, String roles) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
     }
 
     public void setId(Long id) {
@@ -38,7 +48,18 @@ public class Customer {
         return password;
     }
 
+
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 }
