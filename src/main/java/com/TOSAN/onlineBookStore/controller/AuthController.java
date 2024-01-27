@@ -39,7 +39,7 @@ public class AuthController {
     public ResponseEntity<ResponseDto> signUp(@RequestBody AuthRequestDto request){
         try {
             service.addUser(new User(request.getUsername(), request.getPassword(), "CUSTOMER"));
-            return ResponseEntity.ok().body(new ResponseDto("User Added Successfully"));
+            return ResponseEntity.ok().body(new ResponseDto("User has been Added Successfully"));
         }catch (DuplicateUsernameException | UserInfoNullException e){
             return ResponseEntity.badRequest().body(new ResponseDto(e.getMessage()));
         }
