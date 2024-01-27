@@ -8,7 +8,6 @@ public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @OneToOne
     @JoinColumn(name ="book_id", nullable=false, referencedColumnName = "id")
     private Book book;
@@ -16,6 +15,11 @@ public class Inventory {
     private Integer inventory;
 
     public Inventory() {
+    }
+
+    public Inventory(Book book, Integer inventory) {
+        this.book = book;
+        this.inventory = inventory;
     }
 
     public Long getId() {

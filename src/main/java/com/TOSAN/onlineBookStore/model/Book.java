@@ -1,5 +1,7 @@
 package com.TOSAN.onlineBookStore.model;
 
+import com.TOSAN.onlineBookStore.dto.BookDto;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -22,6 +24,16 @@ public class Book {
 
     @OneToMany(mappedBy = "order")
     private Set<OrderItem> orderItems;
+
+    public Book(BookDto bookDto) {
+        this.title = bookDto.getTitle();
+        this.author = bookDto.getAuthor();
+    }
+    public Book(BookDto bookDto, Inventory inventory) {
+        this.title = bookDto.getTitle();
+        this.author = bookDto.getAuthor();
+        this.inventory = inventory;
+    }
 
     public Book() {
     }

@@ -10,15 +10,11 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false, referencedColumnName = "id")
     private User user;
-
     @OneToMany(mappedBy = "order")
     private Set<OrderItem> orderItems;
-
     public Order() {
     }
 

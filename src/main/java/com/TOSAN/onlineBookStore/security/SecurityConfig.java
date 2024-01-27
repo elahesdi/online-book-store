@@ -3,7 +3,6 @@ package com.TOSAN.onlineBookStore.security;
 
 import com.TOSAN.onlineBookStore.security.jwt.JwtFilter;
 import com.TOSAN.onlineBookStore.service.UserServiceImp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,13 +21,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtFilter jwtFilter;
     private final UserServiceImp userServiceImp;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    public SecurityConfig(JwtFilter jwtFilter, UserServiceImp userServiceImp) {
+    public SecurityConfig(JwtFilter jwtFilter, UserServiceImp userServiceImp, PasswordEncoder passwordEncoder) {
         this.jwtFilter = jwtFilter;
         this.userServiceImp = userServiceImp;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -36,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/users/**").hasAuthority("ADMIN")
+                .antMatchers("/users/**", "/books/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
