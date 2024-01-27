@@ -3,14 +3,14 @@ package com.TOSAN.onlineBookStore.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Inventory")
+@Table(name = "inventory")
 public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
-    @JoinColumn(name="book", nullable=false, referencedColumnName = "id")
+    @JoinColumn(name ="book_id", nullable=false, referencedColumnName = "id")
     private Book book;
 
     private Integer inventory;
@@ -41,4 +41,6 @@ public class Inventory {
     public void setInventory(Integer inventory) {
         this.inventory = inventory;
     }
+
+
 }

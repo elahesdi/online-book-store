@@ -5,7 +5,7 @@ import com.TOSAN.onlineBookStore.exception.DuplicateUsernameException;
 import com.TOSAN.onlineBookStore.exception.UserInfoNullException;
 import com.TOSAN.onlineBookStore.exception.UserNotFoundException;
 import com.TOSAN.onlineBookStore.model.User;
-import com.TOSAN.onlineBookStore.repository.CustomerRepository;
+import com.TOSAN.onlineBookStore.repository.UserRepository;
 import com.TOSAN.onlineBookStore.security.Config;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,12 +21,12 @@ import java.util.Optional;
 @Service
 public class UserServiceImp implements UserDetailsService, UserService {
 
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
 
     private final PasswordEncoder encoder;
 
-    public UserServiceImp(CustomerRepository customerRepository, PasswordEncoder encoder) {
-        this.customerRepository = customerRepository;
+    public UserServiceImp(UserRepository userRepository, PasswordEncoder encoder) {
+        this.userRepository = userRepository;
         this.encoder = encoder;
     }
 
@@ -35,16 +35,16 @@ public class UserServiceImp implements UserDetailsService, UserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<User> customer = customerRepository.findByUsername(username);
+        Optional<User> customer = userRepository.findByUsername(username);
         return customer.map(Config.CustomerDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
     }
 
     public User addUser(User userInfo) throws DuplicateUsernameException, UserInfoNullException {
         if (userInfo.getUsername() != null && userInfo.getPassword() != null){
-            if (customerRepository.findByUsername(userInfo.getUsername()).isEmpty()){
+            if (userRepository.findByUsername(userInfo.getUsername()).isEmpty()){
                 userInfo.setPassword(encoder.encode(userInfo.getPassword()));
-                customerRepository.save(userInfo);
+                userRepository.save(userInfo);
             } else {
                 throw new DuplicateUsernameException(userInfo.getUsername());
             }
@@ -55,10 +55,10 @@ public class UserServiceImp implements UserDetailsService, UserService {
     }
 
     public UserDto updateUser(UserDto userDto) throws UserNotFoundException {
-        Optional<User> user = customerRepository.findByUsername(userDto.getUsername());
+        Optional<User> user = userRepository.findByUsername(userDto.getUsername());
         if (user.isPresent()) {
             user.get().setPassword(encoder.encode(userDto.getPassword()));
-            customerRepository.save(user.get());
+            userRepository.save(user.get());
         } else {
             throw new UserNotFoundException(userDto.getUsername());
         }
@@ -66,9 +66,9 @@ public class UserServiceImp implements UserDetailsService, UserService {
     }
 
     public void deleteUser(String username) throws UserNotFoundException {
-        Optional<User> user = customerRepository.findByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
         if (username != null && user.isPresent()) {
-            customerRepository.delete(user.get());
+            userRepository.delete(user.get());
         } else {
             throw new UserNotFoundException(username);
         }
@@ -76,7 +76,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
 
     public List<User> getAllUsers(int pageNo, int pageSize, String sort){
         PageRequest pageRequest = PageRequest.of(pageNo, pageSize, Sort.by(sort).ascending());
-        return customerRepository.findAll(pageRequest).getContent();
+        return userRepository.findAll(pageRequest).getContent();
     }
 
 

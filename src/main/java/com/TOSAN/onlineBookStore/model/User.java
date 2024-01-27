@@ -2,6 +2,7 @@ package com.TOSAN.onlineBookStore.model;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -17,6 +18,9 @@ public class User {
     private String password;
 
     private String roles;
+
+    @OneToMany(mappedBy="user")
+    private Set<Order> order;
 
     public User() {
     }
@@ -47,12 +51,9 @@ public class User {
         return password;
     }
 
-
-
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     public String getRoles() {
         return roles;
@@ -60,5 +61,13 @@ public class User {
 
     public void setRoles(String roles) {
         this.roles = roles;
+    }
+
+    public Set<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(Set<Order> order) {
+        this.order = order;
     }
 }

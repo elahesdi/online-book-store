@@ -1,6 +1,7 @@
 package com.TOSAN.onlineBookStore.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -9,7 +10,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
@@ -17,6 +18,10 @@ public class Book {
 
     @OneToOne(mappedBy="book")
     private Inventory inventory;
+
+
+    @OneToMany(mappedBy = "order")
+    private Set<OrderItem> orderItems;
 
     public Book() {
     }
@@ -50,5 +55,19 @@ public class Book {
         this.author = author;
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
 
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 }
