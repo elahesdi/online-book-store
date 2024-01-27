@@ -4,6 +4,7 @@ import com.TOSAN.onlineBookStore.dto.BookDto;
 import com.TOSAN.onlineBookStore.dto.ResponseDto;
 import com.TOSAN.onlineBookStore.exception.BookNotFoundException;
 import com.TOSAN.onlineBookStore.exception.BookTitleNullException;
+import com.TOSAN.onlineBookStore.exception.UserNotFoundException;
 import com.TOSAN.onlineBookStore.model.Book;
 import com.TOSAN.onlineBookStore.model.Inventory;
 import com.TOSAN.onlineBookStore.service.BookService;
@@ -53,6 +54,16 @@ public class BookController {
             bookService.updateBook(bookDto);
             return ResponseEntity.ok().body(new ResponseDto("The book has been updated successfully"));
         }catch (BookNotFoundException e) {
+            return ResponseEntity.badRequest().body(new ResponseDto(e.getMessage()));
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseDto> deleteUser(@PathVariable Long id)  {
+        try {
+            bookService.deleteUser(id);
+            return ResponseEntity.ok().body(new ResponseDto("The book has been deleted successfully"));
+        } catch (BookNotFoundException e) {
             return ResponseEntity.badRequest().body(new ResponseDto(e.getMessage()));
         }
     }

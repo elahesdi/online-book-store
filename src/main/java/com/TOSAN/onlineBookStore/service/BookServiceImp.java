@@ -45,6 +45,9 @@ public class BookServiceImp implements BookService {
         bookRepository.save(book);
         return book;
     }
-
+    public void deleteUser(Long id) throws BookNotFoundException {
+        Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id.toString()));
+        bookRepository.delete(book);
+    }
 
 }

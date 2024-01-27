@@ -13,5 +13,6 @@ public interface BookService {
     Book addBook(BookDto bootDto) throws BookTitleNullException;
     List<Book> getAllBooks(int pageNo, int pageSize, String sort);
     Book updateBook(BookDto bookDto) throws BookNotFoundException;
+    void deleteUser(Long id) throws BookNotFoundException;
 
 }

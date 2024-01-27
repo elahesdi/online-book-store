@@ -38,15 +38,14 @@ public class UserController {
 
     }
 
-    @DeleteMapping
-    public ResponseEntity<ResponseDto> deleteUser(@RequestBody UserDto userDto)  {
+    @DeleteMapping("/{username}")
+    public ResponseEntity<ResponseDto> deleteUser(@PathVariable String username)  {
         try {
-            userServiceImp.deleteUser(userDto.getUsername());
+            userServiceImp.deleteUser(username);
             return ResponseEntity.ok().body(new ResponseDto("User has been deleted successfully"));
         } catch (UserNotFoundException e){
             return ResponseEntity.badRequest().body(new ResponseDto(e.getMessage()));
         }
-
     }
 
 

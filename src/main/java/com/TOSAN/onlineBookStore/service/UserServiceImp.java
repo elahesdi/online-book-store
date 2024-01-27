@@ -1,9 +1,11 @@
 package com.TOSAN.onlineBookStore.service;
 
 import com.TOSAN.onlineBookStore.dto.UserDto;
+import com.TOSAN.onlineBookStore.exception.BookNotFoundException;
 import com.TOSAN.onlineBookStore.exception.DuplicateUsernameException;
 import com.TOSAN.onlineBookStore.exception.UserInfoNullException;
 import com.TOSAN.onlineBookStore.exception.UserNotFoundException;
+import com.TOSAN.onlineBookStore.model.Book;
 import com.TOSAN.onlineBookStore.model.User;
 import com.TOSAN.onlineBookStore.repository.UserRepository;
 import com.TOSAN.onlineBookStore.security.Config;
@@ -66,12 +68,8 @@ public class UserServiceImp implements UserDetailsService, UserService {
     }
 
     public void deleteUser(String username) throws UserNotFoundException {
-        Optional<User> user = userRepository.findByUsername(username);
-        if (username != null && user.isPresent()) {
-            userRepository.delete(user.get());
-        } else {
-            throw new UserNotFoundException(username);
-        }
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        userRepository.delete(user);
     }
 
     public List<User> getAllUsers(int pageNo, int pageSize, String sort){

@@ -9,8 +9,8 @@ import com.TOSAN.onlineBookStore.model.User;
 import java.util.List;
 
 public interface UserService {
-    public User addUser(User userInfo) throws DuplicateUsernameException, UserInfoNullException;
-    public UserDto updateUser(UserDto userDto) throws UserNotFoundException;
-    public void deleteUser(String username) throws UserNotFoundException;
-    public List<User> getAllUsers(int pageNo, int pageSize, String sort);
+     User addUser(User userInfo) throws DuplicateUsernameException, UserInfoNullException;
+     UserDto updateUser(UserDto userDto) throws UserNotFoundException;
+     void deleteUser(String username) throws UserNotFoundException;
+     List<User> getAllUsers(int pageNo, int pageSize, String sort);
 }

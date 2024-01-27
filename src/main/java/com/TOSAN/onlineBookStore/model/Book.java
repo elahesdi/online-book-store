@@ -18,7 +18,7 @@ public class Book {
     @Column(nullable = false)
     private String author;
 
-    @OneToOne(mappedBy="book")
+    @OneToOne(mappedBy="book", cascade = CascadeType.ALL)
     private Inventory inventory;
 
 
