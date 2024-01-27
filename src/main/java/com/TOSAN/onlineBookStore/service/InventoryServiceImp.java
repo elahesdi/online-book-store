@@ -18,4 +18,8 @@ public class InventoryServiceImp implements InventoryService {
     public Inventory addInventory(Inventory inventory){
         return inventoryRepository.save(inventory);
     }
+
+    public Inventory updateInventory(Inventory inventory){
+        return inventoryRepository.save(inventory);
+    }
 }

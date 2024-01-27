@@ -14,5 +14,6 @@ public interface BookService {
     List<Book> getAllBooks(int pageNo, int pageSize, String sort);
     Book updateBook(BookDto bookDto) throws BookNotFoundException;
     void deleteUser(Long id) throws BookNotFoundException;
+    Book getBook(Long id) throws BookNotFoundException;
 
 }

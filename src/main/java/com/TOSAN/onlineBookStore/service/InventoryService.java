@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 
 public interface InventoryService {
     Inventory addInventory(Inventory inventory);
+    Inventory updateInventory(Inventory inventory);
 }

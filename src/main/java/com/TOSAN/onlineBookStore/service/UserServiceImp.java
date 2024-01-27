@@ -77,8 +77,4 @@ public class UserServiceImp implements UserDetailsService, UserService {
         return userRepository.findAll(pageRequest).getContent();
     }
 
-
-
-
-
 }

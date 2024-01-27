@@ -4,7 +4,6 @@ import com.TOSAN.onlineBookStore.dto.BookDto;
 import com.TOSAN.onlineBookStore.dto.ResponseDto;
 import com.TOSAN.onlineBookStore.exception.BookNotFoundException;
 import com.TOSAN.onlineBookStore.exception.BookTitleNullException;
-import com.TOSAN.onlineBookStore.exception.UserNotFoundException;
 import com.TOSAN.onlineBookStore.model.Book;
 import com.TOSAN.onlineBookStore.model.Inventory;
 import com.TOSAN.onlineBookStore.service.BookService;
@@ -67,6 +66,16 @@ public class BookController {
             return ResponseEntity.badRequest().body(new ResponseDto(e.getMessage()));
         }
     }
-
+    @PutMapping("/{id}/inventory/{inventory}")
+    public ResponseEntity<ResponseDto> inventoryChange(@PathVariable Long id, @PathVariable int inventory){
+        try{
+            Inventory i = bookService.getBook(id).getInventory();
+            i.setInventory(inventory);
+            inventoryService.updateInventory(i);
+            return ResponseEntity.ok().body(new ResponseDto("The book inventory has been updated successfully"));
+        }catch (BookNotFoundException e) {
+            return ResponseEntity.badRequest().body(new ResponseDto(e.getMessage()));
+        }
+    }
 
 }

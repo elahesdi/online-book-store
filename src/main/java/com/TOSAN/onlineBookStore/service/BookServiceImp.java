@@ -37,6 +37,10 @@ public class BookServiceImp implements BookService {
         return bookRepository.findAll(pageRequest).getContent();
     }
 
+    public Book getBook(Long id) throws BookNotFoundException {
+        return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id.toString()));
+    }
+
 
     public Book updateBook(BookDto bookDto) throws BookNotFoundException {
         Book book = bookRepository.findById(bookDto.getId()).orElseThrow(() -> new BookNotFoundException(bookDto.getId().toString()));
