@@ -1,4 +1,4 @@
-package com.TOSAN.onlineBookStore.security;
+package com.TOSAN.onlineBookStore.config;
 
 import com.TOSAN.onlineBookStore.model.User;
 import org.springframework.context.annotation.Bean;

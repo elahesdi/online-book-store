@@ -14,11 +14,11 @@ public class InventoryServiceImp implements InventoryService {
         this.inventoryRepository = inventoryRepository;
     }
 
-
+    @Override
     public Inventory addInventory(Inventory inventory){
         return inventoryRepository.save(inventory);
     }
-
+    @Override
     public Inventory updateInventory(Inventory inventory){
         return inventoryRepository.save(inventory);
     }

@@ -1,14 +1,12 @@
 package com.TOSAN.onlineBookStore.service;
 
 import com.TOSAN.onlineBookStore.dto.UserDto;
-import com.TOSAN.onlineBookStore.exception.BookNotFoundException;
 import com.TOSAN.onlineBookStore.exception.DuplicateUsernameException;
 import com.TOSAN.onlineBookStore.exception.UserInfoNullException;
 import com.TOSAN.onlineBookStore.exception.UserNotFoundException;
-import com.TOSAN.onlineBookStore.model.Book;
 import com.TOSAN.onlineBookStore.model.User;
 import com.TOSAN.onlineBookStore.repository.UserRepository;
-import com.TOSAN.onlineBookStore.security.Config;
+import com.TOSAN.onlineBookStore.config.Config;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,6 +40,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
     }
 
+    @Override
     public User addUser(User userInfo) throws DuplicateUsernameException, UserInfoNullException {
         if (userInfo.getUsername() != null && userInfo.getPassword() != null){
             if (userRepository.findByUsername(userInfo.getUsername()).isEmpty()){
@@ -55,7 +54,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
         }
         return userInfo;
     }
-
+    @Override
     public UserDto updateUser(UserDto userDto) throws UserNotFoundException {
         Optional<User> user = userRepository.findByUsername(userDto.getUsername());
         if (user.isPresent()) {
@@ -66,12 +65,13 @@ public class UserServiceImp implements UserDetailsService, UserService {
         }
         return userDto;
     }
-
+    @Override
     public void deleteUser(String username) throws UserNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         userRepository.delete(user);
     }
 
+    @Override
     public List<User> getAllUsers(int pageNo, int pageSize, String sort){
         PageRequest pageRequest = PageRequest.of(pageNo, pageSize, Sort.by(sort).ascending());
         return userRepository.findAll(pageRequest).getContent();

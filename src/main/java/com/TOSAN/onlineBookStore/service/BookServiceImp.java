@@ -25,23 +25,23 @@ public class BookServiceImp implements BookService {
         this.bookRepository = bookRepository;
 
     }
-
+    @Override
     public Book addBook(BookDto bookDto) throws BookTitleNullException {
         Optional.ofNullable(bookDto.getTitle()).orElseThrow(BookTitleNullException::new);
         Book book = new Book(bookDto);
         return bookRepository.save(book);
     }
-
+    @Override
     public List<Book> getAllBooks(int pageNo, int pageSize, String sort){
         PageRequest pageRequest = PageRequest.of(pageNo, pageSize, Sort.by(sort).ascending());
         return bookRepository.findAll(pageRequest).getContent();
     }
-
+    @Override
     public Book getBook(Long id) throws BookNotFoundException {
         return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id.toString()));
     }
 
-
+    @Override
     public Book updateBook(BookDto bookDto) throws BookNotFoundException {
         Book book = bookRepository.findById(bookDto.getId()).orElseThrow(() -> new BookNotFoundException(bookDto.getId().toString()));
         book.setTitle(bookDto.getTitle());
@@ -49,9 +49,13 @@ public class BookServiceImp implements BookService {
         bookRepository.save(book);
         return book;
     }
+    @Override
     public void deleteUser(Long id) throws BookNotFoundException {
         Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id.toString()));
         bookRepository.delete(book);
     }
 
+    public List<Book> findAll() {
+       return bookRepository.findAll();
+    }
 }
