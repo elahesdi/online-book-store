@@ -23,6 +23,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserServiceImp userServiceImp;
     private final PasswordEncoder passwordEncoder;
 
+    private static final String[] AUTH_WHITELIST = {
+            // -- Swagger UI v2
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/swagger-ui/**",
+            "/webjars/**",
+            // -- Auth endpoints
+            "/auth/**"
+    };
+
     public SecurityConfig(JwtFilter jwtFilter, UserServiceImp userServiceImp, PasswordEncoder passwordEncoder) {
         this.jwtFilter = jwtFilter;
         this.userServiceImp = userServiceImp;
@@ -33,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
+                .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers("/users/**", "/books/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
