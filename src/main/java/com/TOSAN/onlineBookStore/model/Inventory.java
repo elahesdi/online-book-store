@@ -1,6 +1,5 @@
 package com.TOSAN.onlineBookStore.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 

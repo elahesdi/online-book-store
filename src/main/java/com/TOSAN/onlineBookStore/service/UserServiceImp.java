@@ -6,7 +6,7 @@ import com.TOSAN.onlineBookStore.exception.UserInfoNullException;
 import com.TOSAN.onlineBookStore.exception.UserNotFoundException;
 import com.TOSAN.onlineBookStore.model.User;
 import com.TOSAN.onlineBookStore.repository.UserRepository;
-import com.TOSAN.onlineBookStore.config.Config;
+import com.TOSAN.onlineBookStore.security.CustomerDetails;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,7 +39,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<User> customer = userRepository.findByUsername(username);
-        return customer.map(Config.CustomerDetails::new)
+        return customer.map(CustomerDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
     }
 

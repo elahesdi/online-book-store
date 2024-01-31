@@ -5,7 +5,6 @@ import com.TOSAN.onlineBookStore.exception.OutOfStockException;
 import com.TOSAN.onlineBookStore.model.Book;
 import com.TOSAN.onlineBookStore.model.Inventory;
 import com.TOSAN.onlineBookStore.repository.InventoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

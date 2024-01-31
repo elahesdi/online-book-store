@@ -1,15 +1,10 @@
 package com.TOSAN.onlineBookStore.service;
 
 import com.TOSAN.onlineBookStore.dto.BookDto;
-import com.TOSAN.onlineBookStore.dto.UserDto;
 import com.TOSAN.onlineBookStore.exception.BookNotFoundException;
 import com.TOSAN.onlineBookStore.exception.BookTitleNullException;
-import com.TOSAN.onlineBookStore.exception.UserNotFoundException;
 import com.TOSAN.onlineBookStore.model.Book;
-import com.TOSAN.onlineBookStore.model.Inventory;
-import com.TOSAN.onlineBookStore.model.User;
 import com.TOSAN.onlineBookStore.repository.BookRepository;
-import com.TOSAN.onlineBookStore.repository.InventoryRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

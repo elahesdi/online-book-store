@@ -7,7 +7,7 @@ import io.jsonwebtoken.*;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class JwtUtil {
-    private static final String SECRET = "elahe";
+    private static final String SECRET = "mySecretKey";
     private static final long EXPIRATION_TIME = 864_000_000; // 10 days
     public static String generateToken(String username) {
         return Jwts.builder()
@@ -34,6 +34,5 @@ public class JwtUtil {
     public static Boolean validateToken(String token, UserDetails customer) {
         final String username = extractUsername(token);
         return (username.equals(customer.getUsername()) );
-//                && !isTokenExpired(token));
     }
 }

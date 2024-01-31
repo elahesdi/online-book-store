@@ -4,7 +4,6 @@ import com.TOSAN.onlineBookStore.exception.EntityNotFound;
 import com.TOSAN.onlineBookStore.exception.OutOfStockException;
 import com.TOSAN.onlineBookStore.model.Book;
 import com.TOSAN.onlineBookStore.model.Inventory;
-import org.springframework.stereotype.Service;
 
 
 public interface InventoryService {

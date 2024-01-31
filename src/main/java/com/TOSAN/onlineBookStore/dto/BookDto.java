@@ -1,11 +1,7 @@
 package com.TOSAN.onlineBookStore.dto;
 
 import com.TOSAN.onlineBookStore.model.Book;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import javax.persistence.Column;
 
 public class BookDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)

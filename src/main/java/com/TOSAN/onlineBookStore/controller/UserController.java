@@ -35,7 +35,6 @@ public class UserController {
         } catch (UserNotFoundException e){
             return ResponseEntity.badRequest().body(new ResponseDto(e.getMessage()));
         }
-
     }
 
     @DeleteMapping("/{username}")

@@ -1,10 +1,7 @@
 package com.TOSAN.onlineBookStore.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,7 +10,6 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "order_id")
     private Long id;
     @ManyToOne
     @JoinColumn(name="user_id", nullable = true, referencedColumnName = "id")

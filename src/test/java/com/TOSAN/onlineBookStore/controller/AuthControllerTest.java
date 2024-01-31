@@ -3,6 +3,8 @@ package com.TOSAN.onlineBookStore.controller;
 import com.TOSAN.onlineBookStore.controller.AuthController;
 import com.TOSAN.onlineBookStore.dto.AuthRequestDto;
 import com.TOSAN.onlineBookStore.dto.AuthResponseDto;
+import com.TOSAN.onlineBookStore.security.SecurityConfig;
+import com.TOSAN.onlineBookStore.security.jwt.JwtFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
