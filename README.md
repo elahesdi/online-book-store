@@ -24,8 +24,9 @@ Users Have Following Access for this online store site:
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Database Configuration](#database-configuration)
 - [Swagger](#swagger)
+- [Database Configuration](#database-configuration)
+
  
 ## Installation
 
@@ -57,6 +58,8 @@ Users Have Following Access for this online store site:
 
 After running the application, you can access the APIs using tools like Postman or cURL.
 
+## Swagger
+swagger endpoint: ${hostname:7878}/swagger-ui/
 
 ## Database Configuration
 
@@ -67,5 +70,4 @@ spring.datasource.password=
 spring.datasource.username=
 spring.datasource.url=
 
-## Swagger
-swagger endpoint: ${hostname:7878}/swagger-ui/
+
