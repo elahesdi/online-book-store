@@ -59,7 +59,7 @@ Users Have Following Access for this online store site:
 After running the application, you can access the APIs using tools like Postman or cURL.
 
 ## Swagger
-swagger endpoint: ${hostname:7878}/swagger-ui/
+swagger endpoint: ${hostname}:7878/swagger-ui/
 
 ## Database Configuration
 
