@@ -5,12 +5,24 @@ Welcome to the Online Book Store project! This project is an Online Book Store s
 
 ## Table of Contents
 
+- [Endpoints](#endpoints)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Endpoints](#endpoints)
-- [Authentication](#authentication)
 - [Database Configuration](#database-configuration)
+## Endpoints
 
+Admin Have Following Access for this online store site:-
+
+Add New Books.
+View Books Available.
+Remove Books.
+Increase Books Amount.
+
+Users Have Following Access for this online store site:-
+Create New Account or Register.
+Login.
+View Available Books.
+Select Books and Quantity to Buy.
 ## Installation
 
 1. Clone the repository:
@@ -41,15 +53,6 @@ Welcome to the Online Book Store project! This project is an Online Book Store s
 
 After running the application, you can access the APIs using tools like Postman or cURL.
 
-## Endpoints
-
-Detailed information about the available endpoints can be found in the [Endpoints](./ENDPOINTS.md) document.
-
-## Authentication
-
-To access certain endpoints, you need to authenticate. Use the following endpoint to obtain a JWT token:
-
-- **POST /auth/login**: Login with username and password to obtain JWT token.
 
 ## Database Configuration
 
