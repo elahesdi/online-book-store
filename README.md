@@ -25,6 +25,7 @@ Users Have Following Access for this online store site:
 - [Installation](#installation)
 - [Usage](#usage)
 - [Database Configuration](#database-configuration)
+- [Swagger](#swagger)
  
 ## Installation
 
@@ -65,3 +66,6 @@ Configure MySQL database with the following properties:
 spring.datasource.password=
 spring.datasource.username=
 spring.datasource.url=
+
+## Swagger
+swagger endpoint: ${hostname:7878}/swagger-ui/
