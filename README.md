@@ -1,7 +1,7 @@
 # online-book-store
 
 
-Welcome to the Online Book Store project! This project is an Online Book Store system developed using Spring Boot framework. It provides APIs for managing users, books, orders, inventory and authentication.
+Welcome to the Online Book Store project! This project is an Online Book Store system developed using Spring Boot framework and MySQL as database. It provides APIs for managing users, books, orders, inventory and authentication.
 
 ## Table of Contents
 
@@ -11,18 +11,23 @@ Welcome to the Online Book Store project! This project is an Online Book Store s
 - [Database Configuration](#database-configuration)
 ## Endpoints
 
-Admin Have Following Access for this online store site:-
+Admin Have Following Access for this online store site:
 
-Add New Books.
-View Books Available.
-Remove Books.
-Increase Books Amount.
+- Add New Books.
+- View Books Available and sort them (pagination).
+- Remove Books.
+- Increase Books Amount.
+- view orders.
+- Update Users.
+- Delete Users.
+- view all Users.
 
-Users Have Following Access for this online store site:-
-Create New Account or Register.
-Login.
-View Available Books.
-Select Books and Quantity to Buy.
+Users Have Following Access for this online store site:
+- Create New Account or Register.
+- Login.
+- View Available Books.
+- Select Books and Quantity to Buy.
+- 
 ## Installation
 
 1. Clone the repository:
