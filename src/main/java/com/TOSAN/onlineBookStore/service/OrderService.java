@@ -7,11 +7,13 @@ import com.TOSAN.onlineBookStore.model.User;
 import com.TOSAN.onlineBookStore.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Set;
 
 public interface OrderService {
 
     Order addOrder(Order order);
     Order findById(Long id) throws EntityNotFound;
+    public List<Order> findAllOrders();
 
 }

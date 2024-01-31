@@ -15,12 +15,15 @@ public class BookDto {
 
     private String author;
 
+    private int inventory;
+
     public BookDto() {
     }
 
-    public BookDto(String title, String author) {
+    public BookDto(String title, String author, int inventory) {
         this.title = title;
         this.author = author;
+        this.inventory = inventory;
     }
 
     public BookDto(Long id, String title, String author) {
@@ -54,6 +57,15 @@ public class BookDto {
     }
 
     public static BookDto convertToBookDto(Book book) {
-        return new BookDto(book.getTitle(), book.getAuthor());
+        return new BookDto(book.getTitle(), book.getAuthor(), book.getInventory().getInventory());
+    }
+
+
+    public int getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(int inventory) {
+        this.inventory = inventory;
     }
 }

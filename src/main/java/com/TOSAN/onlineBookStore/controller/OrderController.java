@@ -1,5 +1,6 @@
 package com.TOSAN.onlineBookStore.controller;
 
+import com.TOSAN.onlineBookStore.dto.BookDto;
 import com.TOSAN.onlineBookStore.dto.PurchaseDto;
 import com.TOSAN.onlineBookStore.dto.ResponseDto;
 import com.TOSAN.onlineBookStore.exception.BookNotFoundException;
@@ -13,21 +14,21 @@ import com.TOSAN.onlineBookStore.service.BookService;
 import com.TOSAN.onlineBookStore.service.InventoryService;
 import com.TOSAN.onlineBookStore.service.OrderService;
 import com.TOSAN.onlineBookStore.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/purchase")
@@ -69,4 +70,19 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto(e.getMessage()));
         }
 }
+
+    @Operation(summary = "Get all books. You can sort results based on title or author")
+    @GetMapping("/inventories")
+    public List<BookDto> showBooks(@RequestParam(defaultValue = "0", required = false)  Integer pageNo,
+                                     @RequestParam(defaultValue = "10", required = false)  Integer pageSize,
+                                     @RequestParam(defaultValue = "title", required = false)  String sort){
+        return bookService.getAllBooks(pageNo, pageSize, sort).stream().map(BookDto::convertToBookDto)
+                .collect(Collectors.toList());
+
+    }
+    @GetMapping("/orders")
+    public List<Order> getAllOrders(){
+        return orderService.findAllOrders();
+    }
+
 }

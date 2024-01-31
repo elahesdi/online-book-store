@@ -22,6 +22,7 @@ public class Book {
     @Column(nullable = false)
     private String author;
 
+    @JsonIgnore
     @OneToOne(mappedBy="book", cascade = CascadeType.ALL)
     private Inventory inventory;
 

@@ -1,5 +1,7 @@
 package com.TOSAN.onlineBookStore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,6 +10,8 @@ public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+
     @OneToOne
     @JoinColumn(name ="book_id", nullable=false, referencedColumnName = "id")
     private Book book;

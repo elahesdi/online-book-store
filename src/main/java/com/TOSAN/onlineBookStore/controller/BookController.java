@@ -66,7 +66,6 @@ public class BookController {
     }
 
     @Parameter(name = "Authorization", description = "Bearer token", required = true, in = ParameterIn.HEADER)
-
     @Operation(summary = "Delete a book by ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDto> deleteUser(@PathVariable Long id)  {
@@ -89,5 +88,7 @@ public class BookController {
             return ResponseEntity.badRequest().body(new ResponseDto(e.getMessage()));
         }
     }
+
+
 
 }
