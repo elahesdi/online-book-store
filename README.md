@@ -10,14 +10,13 @@ Welcome to the Online Book Store project! This project is an Online Book Store s
 - [Endpoints](#endpoints)
 - [Authentication](#authentication)
 - [Database Configuration](#database-configuration)
-- [License](#license)
 
 ## Installation
 
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/online-book-store.git
+    git clone https://github.com/elahesdi/online-book-store.git
     ```
 
 2. Navigate to the project directory:
@@ -57,7 +56,6 @@ To access certain endpoints, you need to authenticate. Use the following endpoin
 Configure MySQL database with the following properties:
 
 ```properties
-spring.datasource.password=elahe
-spring.datasource.username=elahe
-spring.datasource.url=jdbc:mysql://localhost:3306/online-book-store?allowPublicKeyRetrieval=true&useSSL=false
-spring.jpa.hibernate.ddl-auto=update
+spring.datasource.password=
+spring.datasource.username=
+spring.datasource.url=
