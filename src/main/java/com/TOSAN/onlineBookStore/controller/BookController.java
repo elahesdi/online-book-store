@@ -8,6 +8,10 @@ import com.TOSAN.onlineBookStore.model.Book;
 import com.TOSAN.onlineBookStore.model.Inventory;
 import com.TOSAN.onlineBookStore.service.BookService;
 import com.TOSAN.onlineBookStore.service.InventoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +31,8 @@ public class BookController {
         this.inventoryService = inventoryService;
     }
 
+    @Operation(summary = "Add a new book")
+//    @Parameter(name = "Authorization", description = "Bearer token", required = true, in = ParameterIn.HEADER)
     @PostMapping
     public ResponseEntity<ResponseDto> addBook(@RequestBody BookDto bookDto){
         try {
@@ -38,8 +44,9 @@ public class BookController {
         }
     }
 
+    @Operation(summary = "Get all books. You can sort results based on title or author")
     @GetMapping
-    public List<BookDto> getAllUsers(@RequestParam(defaultValue = "0", required = false)  Integer pageNo,
+    public List<BookDto> getAllBooks(@RequestParam(defaultValue = "0", required = false)  Integer pageNo,
                                   @RequestParam(defaultValue = "10", required = false)  Integer pageSize,
                                   @RequestParam(defaultValue = "title", required = false)  String sort){
          return bookService.getAllBooks(pageNo, pageSize, sort).stream().map(BookDto::convertToBookDto)
@@ -47,6 +54,7 @@ public class BookController {
 
     }
 
+    @Operation(summary = "Update a book using its Id")
     @PutMapping
     public ResponseEntity<ResponseDto> updateBook(@RequestBody BookDto bookDto){
         try{
@@ -57,6 +65,9 @@ public class BookController {
         }
     }
 
+    @Parameter(name = "Authorization", description = "Bearer token", required = true, in = ParameterIn.HEADER)
+
+    @Operation(summary = "Delete a book by ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDto> deleteUser(@PathVariable Long id)  {
         try {
@@ -66,6 +77,7 @@ public class BookController {
             return ResponseEntity.badRequest().body(new ResponseDto(e.getMessage()));
         }
     }
+    @Operation(summary = "Update inventory of a book by ID")
     @PutMapping("/{id}/inventory/{inventory}")
     public ResponseEntity<ResponseDto> inventoryChange(@PathVariable Long id, @PathVariable int inventory){
         try{

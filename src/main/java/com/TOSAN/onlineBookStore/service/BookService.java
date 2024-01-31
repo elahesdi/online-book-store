@@ -15,5 +15,6 @@ public interface BookService {
     Book updateBook(BookDto bookDto) throws BookNotFoundException;
     void deleteUser(Long id) throws BookNotFoundException;
     Book getBook(Long id) throws BookNotFoundException;
+    public Book findByTitle(String title) throws BookNotFoundException;
 
 }

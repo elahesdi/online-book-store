@@ -30,7 +30,10 @@ public class UserServiceImp implements UserDetailsService, UserService {
         this.encoder = encoder;
     }
 
-
+    @Override
+    public User findUserByUsername(String username) throws UserNotFoundException {
+        return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

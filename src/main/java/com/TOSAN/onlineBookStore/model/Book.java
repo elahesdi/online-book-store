@@ -1,18 +1,22 @@
 package com.TOSAN.onlineBookStore.model;
 
 import com.TOSAN.onlineBookStore.dto.BookDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "books")
+//@Table(name = "books")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "book_id")
     private Long id;
 
-    @Column(nullable = false)
+
+    @Column(unique = true, nullable = false)
     private String title;
 
     @Column(nullable = false)
@@ -21,9 +25,9 @@ public class Book {
     @OneToOne(mappedBy="book", cascade = CascadeType.ALL)
     private Inventory inventory;
 
-
-    @OneToMany(mappedBy = "order")
-    private Set<OrderItem> orderItems;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "books")
+    private Set<Order> orders;
 
     public Book(BookDto bookDto) {
         this.title = bookDto.getTitle();
@@ -75,11 +79,28 @@ public class Book {
         this.inventory = inventory;
     }
 
-    public Set<OrderItem> getOrderItems() {
-        return orderItems;
+
+//    public Set<OrderItem> getOrderItems() {
+//        return orderItems;
+//    }
+//
+//    public void setOrderItems(Set<OrderItem> orderItems) {
+//        this.orderItems = orderItems;
+//    }
+
+
+    public Set<Order> getOrders() {
+        return orders;
     }
 
-    public void setOrderItems(Set<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+//    public void setOrders(Set<Order> orders) {
+//        this.orders = orders;
+//    }
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+        for (Order order : orders) {
+            order.getBooks().add(this);
+        }
     }
+
 }

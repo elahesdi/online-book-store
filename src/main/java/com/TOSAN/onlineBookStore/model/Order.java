@@ -1,6 +1,7 @@
 package com.TOSAN.onlineBookStore.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -9,13 +10,29 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "order_id")
     private Long id;
     @ManyToOne
-    @JoinColumn(name="user_id", nullable=false, referencedColumnName = "id")
+    @JoinColumn(name="user_id", nullable = true, referencedColumnName = "id")
     private User user;
-    @OneToMany(mappedBy = "order")
-    private Set<OrderItem> orderItems;
+
+    @ManyToMany
+    @JoinTable(
+            name = "order_book",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private Set<Book> books;
+
     public Order() {
+    }
+
+    public Order(User user) {
+        this.user = user;
+    }
+
+    public Order(User user, Set<Book> books) {
+        this.user = user;
+        this.books = books;
     }
 
     public Long getId() {
@@ -34,11 +51,20 @@ public class Order {
         this.user = user;
     }
 
-    public Set<OrderItem> getOrderItems() {
-        return orderItems;
+
+
+    public Set<Book> getBooks() {
+        return books;
     }
 
-    public void setOrderItems(Set<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+//    public void setBooks(Set<Book> books) {
+//        this.books = books;
+//    }
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+        for (Book book : books) {
+            book.getOrders().add(this);
+        }
     }
+
 }

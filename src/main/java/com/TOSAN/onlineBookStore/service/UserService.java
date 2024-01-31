@@ -13,4 +13,5 @@ public interface UserService {
      UserDto updateUser(UserDto userDto) throws UserNotFoundException;
      void deleteUser(String username) throws UserNotFoundException;
      List<User> getAllUsers(int pageNo, int pageSize, String sort);
+      User findUserByUsername(String username) throws UserNotFoundException;
 }

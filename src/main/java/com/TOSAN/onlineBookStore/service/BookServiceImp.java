@@ -55,6 +55,11 @@ public class BookServiceImp implements BookService {
         bookRepository.delete(book);
     }
 
+    @Override
+    public Book findByTitle(String title) throws BookNotFoundException {
+        return bookRepository.findByTitle(title).orElseThrow(() -> new BookNotFoundException(title));
+    }
+
     public List<Book> findAll() {
        return bookRepository.findAll();
     }
